@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://bi6wfpd8sgpo"]
+
+[ext_resource type="Script" uid="uid://do680mocelm3w" path="res://map/level_setup.gd" id="1_oj3tl"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_oj3tl")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.0143636, 0.999897, 0, -0.999897, 0.0143636, 0, 24.052, 0)
