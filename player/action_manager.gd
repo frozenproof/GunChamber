@@ -49,7 +49,7 @@ func _load_action(action_id: int) -> void:
 	# Apply variables from database
 	if action_data.has("variables"):
 		for key in action_data.variables:
-			if action.has_property(key):
+			if action.has_method(key):
 				action.set(key, action_data.variables[key])
 	
 	actions[action_data.name] = action
