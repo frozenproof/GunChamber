@@ -3,54 +3,64 @@ extends Node
 
 var actions: Dictionary = {}
 var player: CharacterBody3D
+var db_manager: ActionDBManager
 
-signal action_executed(action_name: String)
-signal action_registered(action_name: String)
-signal action_unregistered(action_name: String)
+const MOVE_ACTION_ID = 1
+const JUMP_ACTION_ID = 2
 
 func _ready() -> void:
+	_initialize()
+	_load_core_actions()
+
+func _initialize() -> void:
 	player = get_parent() as CharacterBody3D
 	assert(player != null, "ActionManager must be a child of CharacterBody3D")
-	print("ActionManager: Initializing...")
 	
-	_load_default_actions()
-	_load_resource_actions()
-	print("ActionManager: Loaded actions:", actions.keys())
+	db_manager = ActionDBManager.new()
+	add_child(db_manager)
 
-func _load_default_actions() -> void:
-	var move_action = MoveAction.new()
-	move_action.initialize(player)
-	actions[move_action.action_name] = move_action
-	print("Registered move action")
+func _load_core_actions() -> void:
+	_load_action(MOVE_ACTION_ID)
+	_load_action(JUMP_ACTION_ID)
+
+func _load_action(action_id: int) -> void:
+	var action_data = db_manager.get_action_data(action_id)
+	if action_data.is_empty():
+		push_error("[ActionManager] Failed to load action ID: %d" % action_id)
+		return
 	
-	var jump_action = JumpAction.new()
-	jump_action.initialize(player)
-	actions[jump_action.action_name] = jump_action
-	print("Registered jump action")
+	# Print debug info
+	print("[ActionManager] Loading action: ", action_data)
 	
-func _load_resource_actions() -> void:
-	var action_dir := "res://actions/"
-	var dir = DirAccess.open(action_dir)
-	if dir:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name != "":
-			if file_name.ends_with(".tres"):
-				var action = load(action_dir + file_name) as PlayerAction
-				if action:
-					action.initialize(player)
-					actions[action.action_name] = action
-					print("Loaded action from file:", file_name)
-			file_name = dir.get_next()
+	# Load the script class
+	var script = load("res://actions/scripts/" + action_data.script_name)
+	if not script:
+		push_error("[ActionManager] Failed to load script: res://actions/scripts/" + action_data.script_name)
+		return
+		
+	var action = script.new()
+	if not action:
+		push_error("[ActionManager] Failed to instantiate action from script")
+		return
+		
+	action.db_id = action_id
+	action.initialize(player)
+	
+	# Apply variables from database
+	if action_data.has("variables"):
+		for key in action_data.variables:
+			if action.has_property(key):
+				action.set(key, action_data.variables[key])
+	
+	actions[action_data.name] = action
+	print("[ActionManager] Successfully loaded action: ", action_data.name)
 
 func execute_action(action_name: String, delta: float) -> void:
-	if actions.has(action_name):
-		var action = actions[action_name]
-		if action.can_execute(player):
-			action.execute(player, delta)
-			emit_signal("action_executed", action_name)
-	else:
-		push_error("Action not found: " + action_name)
-
-func get_action(action_name: String) -> PlayerAction:
-	return actions.get(action_name)
+	if not actions.has(action_name):
+		push_error("[ActionManager] Action not found: " + action_name)
+		return
+		
+	var action = actions[action_name]
+	if action.can_execute(player):
+		action.execute(player, delta)
+		print("[ActionManager] Executed action: ", action_name)

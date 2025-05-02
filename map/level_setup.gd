@@ -21,7 +21,7 @@ func _ready() -> void:
 	# Create some parkour platforms
 	_create_platform(Vector3(5, 2, 5), Vector3(2, 0.5, 2))
 	_create_platform(Vector3(-3, 4, -3), Vector3(2, 0.5, 2))
-	_create_platform(Vector3(-2, 4, -3), Vector3(2, -0.5, 2))
+	_create_platform(Vector3(-2, 4, -5), Vector3(2, 3, 2))
 	_create_wall(Vector3(0, 3, 8), Vector3(8, 6, 0.5))
 
 func _create_platform(position: Vector3, size: Vector3) -> void:

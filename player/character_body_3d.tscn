@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bn3rg5wcgeetd" path="res://player/player_controller.gd" id="1_fb3t6"]
 [ext_resource type="PackedScene" uid="uid://cf64f3k4ph6vx" path="res://barbara/barbara_from_genshin_impact.glb" id="2_fb3t6"]
-[ext_resource type="Script" uid="uid://svivelbcr7dy" path="res://player/action_manager.gd" id="3_vd578"]
+[ext_resource type="Script" uid="uid://dyb8qcxw64hbm" path="res://player/action_manager.gd" id="3_vd578"]
 [ext_resource type="PackedScene" uid="uid://c5guillunvc0o" path="res://gui/menu.tscn" id="4_c7tqt"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_bu0v1"]
