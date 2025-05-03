@@ -77,3 +77,8 @@ This project is currently under active development. Key features implemented:
 
 ## Contributing
 The project is open for contributions. Feel free to submit pull requests or open issues for bugs and feature requests.
+
+# Signing
+keytool -genkeypair -alias frozenproof -keyalg RSA -keysize 2048 -keystore mykeystore.jks -validity 999999999
+
+my birthday without /
