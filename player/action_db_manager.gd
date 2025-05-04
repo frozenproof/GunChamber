@@ -72,7 +72,7 @@ func get_action_data(id: int) -> Dictionary:
 	var columns = "*"
 	var where = "id = %d" % id
 	
-	var result = db.select_rows("actions", where, ["name", "category","script_name","variables"])
+	var result = db.select_rows(table_name, where, ["name", "category","script_name","variables"])
 
 	print("[ActionDBManager] Query result for id %d: " % id, result) # Debug print
 	

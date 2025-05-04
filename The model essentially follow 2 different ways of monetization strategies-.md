@@ -1,101 +1,195 @@
-The MMORPG model essentially follow 2 different ways of monetization strategies: 
+# Game Monetization Strategy
 
-# 1. Use 2 different categories of virtual currency: in game money and real money currency.
+## Table of Contents
+1. [Currency System](#currency-system)
+2. [Premium Currency Pricing](#premium-currency-pricing)
+3. [Gacha System (Banners)](#gacha-system-banners)
+4. [Refund Mechanics](#refund-mechanics)
+5. [Player Retention Systems](#player-retention-systems)
+6. [Inventory Management](#inventory-management)
+7. [Ethical Profit Maximization](#ethical-profit-maximization)
 
-## In game money:   
-  \- Vie: a currency that can be obtained by killing monsters. Monsters always respawn in the maps, at restricted rates to avoid abusing.  
-  \- Vie can be freely used to trade items between users, for certain premium items, players can use Vie to ask for help from users who have the items needed.  
-  \- Global trade board with different sales channels for player made/farmed items. Npc also accept selling items directly but at a fixed price, the item is destroyed.  
-    
-## 3 different types of real money currencies:   
-  \- Cookie dough (100 to become a cookie) which can be stacked and converted into cookies, saved with an account.  
-  \- Cookies (main currency) can be used like your real money virtual currency.   
-  \- Cookie crumbs ( special refunds when used cookies ), can only be turned into cookies by continuing to play(add DCU). This does not generate new cookies from thin air, it simply is the result of the refunding, so no, there will never be a slower system.
-  
-Crumbs conversion rate is   
-* 1 minute and 80% of remaining crumbs if there are more than 1000 crumbs left, similar conversion rate below.  
-* 1 minute and convert 100 cookie crumbs into 100 doughs.   
-1. Very sneaky but make people rather buy a lot to avoid getting burned out  
-2. Make the impression that eventually both bought and normal cookies are grouped together, so it's easier to strategize the banners.  
-     
+---
 
-# 2. Refund and revenues strategy: 
+## Currency System
 
-## Cookie doughs 
-can be obtained for free at 10 \- 100 quantities often through live streams events, special in-game events, loyalty hours,...   
-  1. Keep the engagement  
-  2. Streaming allows publicity   
-  3. Generous give out to help new players catch up  
-  4. Allow players to meet up by setting the condition to receive doughs(complete a minigame to earn the gift, keyword at a map,...)  
-  5. In game events like collabs, allow for growth
+The game implements a multi-tiered currency system to balance free-to-play and premium experiences.
 
+### In-Game Currencies
 
-## Cookies 
-can be obtained mostly through the cookie doughs and real money, which comes with unusually high prices ( because of psychology). 7 tiers:  
-  1. 1 cookie (and 2 bonus cookies) daily at 0.5 dollar. (best deal stamp in the shopping cart, which is actually a lie because 2nd deal gives way more, but limited to weekly basis )  
-     - 10 cookies (and 20 bonus cookies) always available at 8 dollars.  
-  2. 5 cookies (and 8 bonus cookies) weekly at 2 dollars.  
-     - 7 cookies (and 10 bonus cookies) weekly at 3 dollars.  
-     - 10 cookies (and 13 bonus cookies) weekly at 6 dollars.  
-  3. 300 cookies (and 450 bonus cookies) monthly at 100 dollars.
+| Currency Type | Name | Acquisition Method | Usage |
+|---------------|------|-------------------|-------|
+| **Free Currency** | **Vie** | • Obtained by defeating monsters<br>• Monsters respawn at controlled rates to prevent farming abuse | • Trade between players<br>• Purchase certain items<br>• Global trade board with various sales channels<br>• Sell items to NPCs (at fixed prices) |
+| **Premium Currency Tier 1** | **Cookie Dough** | • Real money purchases<br>• Free rewards from events<br>• 100 dough = 1 Cookie | • Converted to Cookies<br>• Account/device-locked if no linked account |
+| **Premium Currency Tier 2** | **Cookies** | • Converted from Cookie Dough<br>• Direct purchase with real money | • Main premium currency<br>• Used for gacha pulls<br>• Inventory expansion<br>• Premium features |
+| **Premium Currency Tier 3** | **Cookie Crumbs** | • Refunds from gacha banners | • Can be converted back to Cookies through continued play<br>• Conversion system detailed below |
 
-## Cookie crumbs 
-come with 2 different refunding strategies, by % mean the cookie crumbs returned can be converted to the equivalence of the % of the original purchase:   
-  1. Refunding at 15% for normal rate up events.  
-  2. Refunding at 35% for special rate up events
+### Cookie Crumbs Conversion System
 
-1. Refunding works the same with free and bought cookies.  
-2. After obtaining all rate up items from a banner for that banner, the player have 2 additional options per banner period to choose a different rate up sets of items, no combinations limit.   
-3. However, rate up is reduced by 10% of the original rate up after every Change.
+Cookie Crumbs represent a partial refund system that encourages continued play:
 
-## Banner(rolling for avatar, special support items like guaranteed base drop rates, enhanced stats, future improvements on items system will have other items to support)
+* **Conversion Rate**:
+  * If > 1000 crumbs: 1 minute converts 80% of remaining crumbs
+  * If ≤ 1000 crumbs: 1 minute converts 100 crumbs into 100 doughs
 
-- Per banner is 3 cookies for a normal roll, 11 rolls is 30 cookies.   
-  - Special rate up banner first roll is always 1 cookie for single roll, 15 cookies for first 11 rolls.  
-  - Normal banner and special banner both have a limited range of availability.  
-- For a bad banner( returning banner with low revenues), a bonus is added with the first 3 rolls are 3 cookies total, and the first 22 rolls are 22 cookies total.  
-- Rate up banners:   
-  - 10% base rate up for normal banners.  
-  - 15% base rate up for bad banners on their return.  
-  - 25% base rate up for special banners.
+* **Strategic Benefits**:
+  * Encourages bulk purchases to avoid burnout from slow conversion
+  * Creates impression that purchased and converted cookies are equivalent
+  * Helps players strategize gacha banner pulls
 
+---
 
-# 3. Loyalty hours: 
-> 60 minutes for 1 cookie dough, reduced with total play time to maximum of 40 minutes each(after playing for 1k hours or has obtained 1k cookies in total, purchased 200 cookies total in life time, the total can be combined).
+## Premium Currency Pricing
 
-- Estimated DCU is through the roof, essentially threatening the actual game survival.   
-- Unless we make profits, reliable profits over the cost of running servers.  
-- Server optimization is a matter of do or die for this game.
+### Cookie Dough Acquisition (Free)
 
-Current: 60 minutes for 1 cookie dough
+| Source | Quantity | Strategic Purpose |
+|--------|----------|-------------------|
+| Live streams | 10-100 | • Drive community engagement<br>• Generate publicity through streaming |
+| Special in-game events | 10-100 | • Keep players engaged<br>• Help new players catch up |
+| Loyalty hours | Variable | • Reward consistent playtime<br>• Encourage daily sessions |
+| Collaborative events | Variable | • Drive growth through partnerships<br>• Create time-limited engagement opportunities |
 
-Suggested: Tiered System (denied)
-- Bronze: 60 minutes (current)
-- Silver: 55 minutes (after $50 spent)
-- Gold: 50 minutes (after $100 spent)
-- Platinum: 45 minutes (after $200 spent)
+### Cookie Packages (Premium)
 
-Tiered system will only manifest a worse environment for everyone and therefore is not needed.
+| Package Type | Cost | Contents | Notes |
+|--------------|------|----------|-------|
+| **Daily Deal** | $0.50 | 1 cookie + 2 bonus cookies | Marked as "Best Deal" (despite weekly options being better value) |
+| **Standard Package** | $8.00 | 10 cookies + 20 bonus cookies | Always available |
+| **Weekly Package - Small** | $2.00 | 5 cookies + 8 bonus cookies | Weekly purchase limit |
+| **Weekly Package - Medium** | $3.00 | 7 cookies + 10 bonus cookies | Weekly purchase limit |
+| **Weekly Package - Large** | $6.00 | 10 cookies + 13 bonus cookies | Weekly purchase limit |
+| **Monthly Whale Package** | $100.00 | 300 cookies + 450 bonus cookies | Monthly purchase limit |
 
-We will replace it with something more fun, guild buffs, when players make a guild, they can make it using normal f2p items, extremely cheap, but for cookies generation buffs, you need to spend cookies to make it even faster than the current rate, 10% reduction of the current rate, requiring you to spend 300 cookies for each level, guild members can vault the cookies together.
+---
 
-# 4. Bag limits: 3 cookies for additional spaces in the bag for each space, permanent activation. Base bag space is 100 total.
-- Bag spaces can also be increased permanently by obtaining some  boss materials for f2p friendly. 
-  - Each new space requires materials from a different, stronger boss, progressively encourage players to play more.
+## Gacha System (Banners)
 
-- If bought 30 days exp/drop rate up ticket, get an additional 100 bag spaces for limited time, as long as the ticket is valid.
+The game features different banner types with varying costs and drop rates:
 
-- If any cookie is bought for the first time in the latest 30 days, get additional 30 bag spaces, as long as the purchase in time range.
+| Banner Type | Single Pull Cost | Multi-Pull Cost (11x) | Base Rate Up | Notes |
+|-------------|------------------|------------------------|--------------|-------|
+| **Standard Banner** | 3 cookies | 30 cookies | 10% | Regular rotation of items |
+| **Special Rate-Up Banner** | 1 cookie (first pull only) | 15 cookies (first multi-pull only) | 25% | Limited-time special items |
+| **Returning Banner** | 3 cookies total for first 3 pulls | 22 cookies total for first 22 pulls | 15% | Previous limited banners return with discount |
 
-- A solution for players is to use the storage NPC at cities  
-  1. Base free space is 30 for first storage, and need 3 cookies per 5 additional spaces in this NPC storage.   
-  2. Shared storage between NPC in each city, essentially the same NPC but different textures.   
-  3. Multiple storages on NPC.  
-  4. Cap per NPC storage is 100 spaces.  
-  5. Each new storage unlocks requires 30 cookies.  
-  6. Base spaces are 10 on new storage accesses on the same NPC, and need 3 cookies to unlock 5 additional spaces.
+### Banner Mechanics
 
-# 5. Daily gift
- - If bought 30 days exp/drop rate up ticket, get an additional 10 avatar pieces for each ticket type(100 to convert into an avatar ticket)
+* After obtaining all rate-up items from a banner, players can choose different rate-up item sets during the banner period
+* Players can change their rate-up selection twice per banner period
+* Each change reduces the rate-up percentage by 10% of the original rate
 
- - Get 1 avatar ticket piece every day if any cookie is bought within 30 days for 30 days straight.
+---
+
+## Refund Mechanics
+
+The game implements a refund system that returns a portion of spent currency as Cookie Crumbs:
+
+| Banner Type | Refund Rate | Notes |
+|-------------|-------------|-------|
+| **Standard Rate-Up Events** | 15% | Applied to both free and purchased cookies |
+| **Special Rate-Up Events** | 35% | Higher refund rate to encourage pulls on special banners |
+
+---
+
+## Player Retention Systems
+
+### Loyalty Hours System
+
+Players earn Cookie Dough through active playtime:
+
+| Player Status | Generation Rate | Modifiers |
+|---------------|----------------|-----------|
+| Standard | 60 minutes per Cookie Dough | - |
+| Veteran Players | Down to 40 minutes per Cookie Dough | Requires either:<br>• 1,000+ hours of playtime<br>• 1,000+ cookies obtained<br>• 500+ cookies purchased lifetime |
+| Offline | +50% time penalty | 60 → 90 minutes<br>40 → 60 minutes |
+
+### Daily Login Rewards
+
+| Condition | Reward |
+|-----------|--------|
+| Active 30-day EXP/Drop Rate Ticket | +10 avatar pieces per ticket type (100 pieces = 1 avatar ticket) |
+| Any cookie purchase within past 30 days | 1 avatar ticket piece daily for 30 consecutive days |
+
+---
+
+## Inventory Management
+
+### Main Inventory
+
+| Feature | Details | Cost |
+|---------|---------|------|
+| Base Capacity | 100 slots | Free |
+| Permanent Expansion | +1 slot | 3 cookies per slot |
+| F2P Expansion | Additional slots | Requires boss materials (progressive difficulty) |
+| Premium Buff Expansion | +100 slots | Requires active 30-day EXP/Drop Rate Ticket |
+| Recent Purchase Bonus | +30 slots | Active for 30 days after first-time cookie purchase |
+
+### NPC Storage System
+
+| Feature | Details | Cost |
+|---------|---------|------|
+| First Storage | 30 slots | Free |
+| Additional Slots | +5 slots | 3 cookies |
+| Max Capacity | 100 slots per storage | - |
+| New Storage Unlock | Additional storage tab | 30 cookies |
+| New Storage Base Capacity | 10 slots | Free with unlock |
+| New Storage Expansion | +5 slots | 3 cookies |
+
+**Note**: Storage is shared between NPCs in each city (same functionality, different appearances)
+
+---
+
+## Ethical Profit Maximization
+
+These strategic recommendations balance revenue growth with player satisfaction, creating sustainable monetization without appearing exploitative.
+
+### Value-First Approach
+
+| Strategy | Implementation | Benefits |
+|----------|----------------|----------|
+| **Cosmetic Emphasis** | Focus premium items on visual enhancements without gameplay advantages | • Reduces pay-to-win perception<br>• Attracts spending from all player segments |
+| **Clear Value Proposition** | Ensure premium purchases provide tangible benefits that players genuinely value | • Increases conversion rates<br>• Builds trust in the monetization system |
+| **Generous F2P Foundation** | Provide sufficient free resources for core gameplay enjoyment | • Builds larger player base<br>• Creates potential future spenders |
+
+### Psychological Comfort Techniques
+
+| Strategy | Implementation | Benefits |
+|----------|----------------|----------|
+| **Transparent Probabilities** | Display exact drop rates for gacha items | • Builds trust<br>• Reduces post-purchase regret |
+| **Pity Systems** | Guarantee high-value rewards after X unsuccessful attempts | • Reduces frustration<br>• Encourages continued spending |
+| **Achievement-Based Rewards** | Tie premium currency rewards to gameplay accomplishments | • Creates positive association with spending<br>• Rewards skill and engagement |
+| **Bundle Optimization** | Design bundles with high perceived value (e.g., 1 premium item + several useful items) | • Increases average purchase size<br>• Customers feel they received good value |
+
+### User Experience Improvements
+
+| Strategy | Implementation | Benefits |
+|----------|----------------|----------|
+| **Soft Paywall Design** | Create gentle friction points rather than hard barriers | • Reduces frustration<br>• Maintains goodwill while encouraging spending |
+| **Meaningful Progression** | Ensure F2P paths remain viable, just slower | • Maintains healthy ecosystem<br>• Validates player investment (time or money) |
+| **Social Validation** | Highlight community benefits of premium features | • Leverages social proof<br>• Creates positive community environment |
+
+### Financial Optimization
+
+| Strategy | Implementation | Benefits |
+|----------|----------------|----------|
+| **Tiered Spending Paths** | Create natural upgrade paths from $1 → $5 → $15 → $30 → $100 | • Gradually increases ARPU<br>• Builds spending habits |
+| **Limited-Time Value** | Offer exceptional deals during special events | • Creates urgency<br>• Converts hesitant spenders |
+| **Subscription Options** | Add monthly passes with daily benefits | • Stabilizes revenue<br>• Creates routine engagement |
+| **Reward Early Adopters** | Provide bonus value for first-time purchases | • Breaks initial spending hesitation<br>• Creates positive first impression |
+
+### Analytics-Driven Decisions
+
+| Strategy | Implementation | Benefits |
+|----------|----------------|----------|
+| **Segment-Based Offers** | Tailor promotions to player behavior types | • Increases conversion rates<br>• Optimizes revenue from each player type |
+| **A/B Testing** | Test price points and bundle compositions | • Identifies optimal pricing<br>• Maximizes revenue without alienating players |
+| **Churn Prevention** | Target retention offers to at-risk players | • Reduces player loss<br>• Recaptures lapsed spenders |
+
+### Communication Strategy
+
+| Strategy | Implementation | Benefits |
+|----------|----------------|----------|
+| **Developer Transparency** | Explain monetization decisions in community updates | • Builds trust<br>• Positions spending as supporting development |
+| **Community Feedback Loop** | Actively incorporate player suggestions for monetization | • Creates ownership feeling<br>• Improves system acceptance |
+| **Value Education** | Help players understand how to maximize value from purchases | • Increases satisfaction<br>• Reduces post-purchase regret |
