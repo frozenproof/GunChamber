@@ -2,6 +2,7 @@ extends Control
 class_name Menu
 
 signal resume_game
+signal settings
 signal quit_game
 
 @onready var resume_button = $PanelContainer/MarginContainer/VBoxContainer/ResumeButton
@@ -19,6 +20,7 @@ func _on_resume_pressed() -> void:
 
 func _on_settings_pressed() -> void:
 	# TODO: Implement settings panel
+	emit_signal("settings")
 	print("Settings pressed")
 
 func _on_quit_pressed() -> void:

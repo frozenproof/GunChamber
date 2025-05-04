@@ -4,10 +4,20 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var menu: Control = $Menu
 
-@export var SENSITIVITY := 0.003
+@export var SENSITIVITY := 0.009
+@export var INITIAL_CAMERA_DISTANCE := 5.0
+@export var MIN_CAMERA_DISTANCE := 1.0    # How close camera can zoom in
+@export var MAX_CAMERA_DISTANCE := 10.0   # How far camera can zoom out
+@export var ZOOM_SPEED := 0.5             # How fast the zoom is
+@export var MIN_VERTICAL_ANGLE := -PI/3   # Prevent looking too far down
+@export var MAX_VERTICAL_ANGLE := PI/3    # Prevent looking too far up
+@export var ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var game_paused := false
+var camera_panning := false
+var camera_distance := INITIAL_CAMERA_DISTANCE
+var camera_rotation := Vector2.ZERO      # Store camera rotation separate from character rotation
 
 func _ready() -> void:
 	assert(action_manager != null, "ActionManager node not found!")
@@ -15,10 +25,16 @@ func _ready() -> void:
 	assert(menu != null, "Menu not found!")
 	
 	menu.resume_game.connect(_on_resume_game)
+	menu.settings.connect(_on_settings_new)
 	menu.quit_game.connect(_on_quit_game)
 	
-	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
+	# Always keep mouse visible
+	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	print("Player Controller: Initialized")
+	
+	# Initialize camera
+	camera_distance = INITIAL_CAMERA_DISTANCE
+	update_camera()
 	
 func _physics_process(delta: float) -> void:
 	if game_paused:
@@ -27,7 +43,7 @@ func _physics_process(delta: float) -> void:
 	if not action_manager:
 		push_error("ActionManager is null!")
 		return
-		
+	
 	# Basic movement and jump execution
 	action_manager.execute_action("move", delta)
 	
@@ -45,6 +61,25 @@ func _physics_process(delta: float) -> void:
 		var jump_action = action_manager.actions.get("jump") as JumpAction
 		if jump_action:
 			jump_action.current_jumps = 0
+	
+	# Update camera position after character has moved
+	update_camera()
+
+func _process(delta: float) -> void:
+	# Handle camera panning in _process to get smoother movement
+	if not game_paused and camera_panning:
+		# Get mouse movement
+		var mouse_speed = Input.get_last_mouse_velocity() * delta * SENSITIVITY
+		
+		# Update camera rotation values (stored separately from character rotation)
+		camera_rotation.x -= mouse_speed.y
+		camera_rotation.y -= mouse_speed.x
+		
+		# Clamp vertical rotation
+		camera_rotation.x = clamp(camera_rotation.x, MIN_VERTICAL_ANGLE, MAX_VERTICAL_ANGLE)
+		
+		# Update camera position and orientation
+		update_camera()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -52,25 +87,54 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if game_paused:
 		return
+	
+	# Handle right mouse button for camera panning
+	if event.is_action_pressed("ui_right_mouse"):
+		camera_panning = true
+	
+	if event.is_action_released("ui_right_mouse"):
+		camera_panning = false
+	
+	# Handle mouse wheel for zooming
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
+			# Zoom in
+			camera_distance = max(MIN_CAMERA_DISTANCE, camera_distance - ZOOM_SPEED)
+			update_camera()
+		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
+			# Zoom out
+			camera_distance = min(MAX_CAMERA_DISTANCE, camera_distance + ZOOM_SPEED)
+			update_camera()
+
+# Update camera position and orientation based on current values
+func update_camera() -> void:
+	# Set camera pivot rotation
+	camera_pivot.rotation.x = camera_rotation.x
+	camera_pivot.rotation.y = camera_rotation.y
+	
+	# Ensure camera_pivot position is at character's position
+	camera_pivot.global_position = global_position
+	
+	# If there's a camera as child of the pivot, update its position
+	if camera_pivot.has_node("Camera3D"):
+		var camera = camera_pivot.get_node("Camera3D")
 		
-	if event is InputEventMouseMotion:
-		if Input.mouse_mode == Input.MOUSE_MODE_CAPTURED:
-			rotate_y(-event.relative.x * SENSITIVITY)
-			camera_pivot.rotate_x(-event.relative.y * SENSITIVITY)
-			camera_pivot.rotation.x = clamp(camera_pivot.rotation.x, -PI/2, PI/2)
+		# Position camera at the correct distance (negative Z is forward in Godot)
+		camera.position = Vector3(camera.position.x, camera.position.y, camera_distance)
 
 func toggle_game_pause() -> void:
 	game_paused = !game_paused
 	
 	if game_paused:
-		Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 		menu.show_menu()
 	else:
-		Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 		menu.hide_menu()
 
 func _on_resume_game() -> void:
 	toggle_game_pause()
+
+func _on_settings_new() -> void:
+	print("lmao settings")
 
 func _on_quit_game() -> void:
 	get_tree().quit()

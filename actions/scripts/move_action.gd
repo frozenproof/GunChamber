@@ -4,9 +4,9 @@ extends Node
 var db_id: int = 1
 
 # Variables from database
-var move_speed: float = 5.0
-var acceleration: float = 15.0
-var deceleration: float = 10.0
+@export var move_speed: float = 10.0
+@export var acceleration: float = 3.0
+@export var deceleration: float = 9.0
 
 var player: CharacterBody3D
 var action_enabled: bool = true

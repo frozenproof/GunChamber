@@ -5,12 +5,13 @@ var actions: Dictionary = {}
 var player: CharacterBody3D
 var db_manager: ActionDBManager
 
-const MOVE_ACTION_ID = 1
-const JUMP_ACTION_ID = 2
+const CORE_ACTION_ID = 2
+const SKILL_ACTION_ID = 2
 
 func _ready() -> void:
 	_initialize()
 	_load_core_actions()
+	print("Action manager loaded")
 
 func _initialize() -> void:
 	player = get_parent() as CharacterBody3D
@@ -20,8 +21,8 @@ func _initialize() -> void:
 	add_child(db_manager)
 
 func _load_core_actions() -> void:
-	_load_action(MOVE_ACTION_ID)
-	_load_action(JUMP_ACTION_ID)
+	for i in range(1,CORE_ACTION_ID+1,1):
+		_load_action(i)
 
 func _load_action(action_id: int) -> void:
 	var action_data = db_manager.get_action_data(action_id)
@@ -30,7 +31,7 @@ func _load_action(action_id: int) -> void:
 		return
 	
 	# Print debug info
-	print("[ActionManager] Loading action: ", action_data)
+	#print("[ActionManager] Loading action: ", action_data)
 	
 	# Load the script class
 	var script = load("res://actions/scripts/" + action_data.script_name)
@@ -51,9 +52,13 @@ func _load_action(action_id: int) -> void:
 		for key in action_data.variables:
 			if action.has_method(key):
 				action.set(key, action_data.variables[key])
+			else:
+				print("No action keys detected")
 	
 	actions[action_data.name] = action
-	print("[ActionManager] Successfully loaded action: ", action_data.name)
+	# print("[ActionManager] Successfully loaded action: ", action_data.name)
+	print("[ActionManager] Successfully loaded action: ", actions)
+
 
 func execute_action(action_name: String, delta: float) -> void:
 	if not actions.has(action_name):
@@ -63,4 +68,5 @@ func execute_action(action_name: String, delta: float) -> void:
 	var action = actions[action_name]
 	if action.can_execute(player):
 		action.execute(player, delta)
-		print("[ActionManager] Executed action: ", action_name)
+		# temporarily debug
+		# print("[ActionManager] Executed action: ", action_name)

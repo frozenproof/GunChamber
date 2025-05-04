@@ -4,10 +4,10 @@ extends Node
 var db_id: int = 2
 
 # Variables from database
-var jump_force: float = 4.5
-var max_jumps: int = 2
-var wall_jump_force: float = 3.0
-var current_jumps: int = 0
+@export	var jump_force: float = 4.5
+@export var max_jumps: int = 2
+@export var wall_jump_force: float = 2.0
+@export var current_jumps: int = 0
 
 var player: CharacterBody3D
 var action_enabled: bool = true
