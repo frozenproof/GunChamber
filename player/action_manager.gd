@@ -6,7 +6,7 @@ var player: CharacterBody3D
 var db_manager: ActionDBManager
 
 const CORE_ACTION_ID = 2
-const SKILL_ACTION_ID = 2
+const SKILL_ACTION_ID = 3
 
 func _ready() -> void:
 	_initialize()
@@ -50,13 +50,16 @@ func _load_action(action_id: int) -> void:
 	# Apply variables from database
 	if action_data.has("variables"):
 		for key in action_data.variables:
-			if action.has_method(key):
+			if action.has_meta(key) or key in action:
+				# var a = key
+				# var b = str(action_data.variables[key])
+				#print("[ActionManager] Warning: Action have variable" + a  + "set value to " + b ) 
 				action.set(key, action_data.variables[key])
 			else:
-				print("No action keys detected")
+				print("[ActionManager] Warning: Action does not have variable '%s'" % key)
+
 	
 	actions[action_data.name] = action
-	# print("[ActionManager] Successfully loaded action: ", action_data.name)
 	print("[ActionManager] Successfully loaded action: ", actions)
 
 
