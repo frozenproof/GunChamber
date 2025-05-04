@@ -11,6 +11,14 @@
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_fb3t6")
+SENSITIVITY = null
+INITIAL_CAMERA_DISTANCE = null
+MIN_CAMERA_DISTANCE = null
+MAX_CAMERA_DISTANCE = null
+ZOOM_SPEED = null
+MIN_VERTICAL_ANGLE = null
+MAX_VERTICAL_ANGLE = null
+ROTATION_SPEED = null
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(0.999325, 0, -0.0367484, 0, 1, 0, 0.0367484, 0, 0.999325, 0, 0, 0)

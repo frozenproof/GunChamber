@@ -51,8 +51,8 @@ func _load_action(action_id: int) -> void:
 	if action_data.has("variables"):
 		for key in action_data.variables:
 			if action.has_meta(key) or key in action:
-				# var a = key
-				# var b = str(action_data.variables[key])
+				#var a = key
+				#var b = str(action_data.variables[key])
 				#print("[ActionManager] Warning: Action have variable" + a  + "set value to " + b ) 
 				action.set(key, action_data.variables[key])
 			else:
