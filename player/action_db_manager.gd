@@ -57,7 +57,8 @@ func _create_fresh_database() -> void:
 	# Jump action
 	var jump_vars = JSON.stringify({
 		"jump_force": 4.5,
-		"max_jumps": 2
+		"max_jumps": 2,
+		"wall_jump_force": 2
 	})
 	var jump_result = db.query("""
 		INSERT OR REPLACE INTO actions 
@@ -69,10 +70,10 @@ func _create_fresh_database() -> void:
 
 func get_action_data(id: int) -> Dictionary:
 	var table_name = "actions"
-	var columns = "*"
+	var columns = ["name", "category","script_name","variables"]
 	var where = "id = %d" % id
 	
-	var result = db.select_rows(table_name, where, ["name", "category","script_name","variables"])
+	var result = db.select_rows(table_name, where, columns)
 
 	print("[ActionDBManager] Query result for id %d: " % id, result) # Debug print
 	
