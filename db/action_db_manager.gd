@@ -39,7 +39,26 @@ func insert_base_actions_data(db2: SQLite) -> void:
 			"name": "jump",
 			"script": "jump_action.gd",
 			"vars": {"jump_force": 4.5, "max_jumps": 2, "wall_jump_force": 2}
-		}
+		},
 	]
-	
+
+	# stress test
+	var rng = RandomNumberGenerator.new()
+	rng.randomize()
+	# Generate dummy actions from id 3 to 102
+	for i in range(3, 1033):
+		var action_name = "action_%d" % i
+		var script_name = "%s_action.gd" % action_name
+		var vars = {
+			"value1": rng.randf_range(1.0, 10.0),
+			"value2": rng.randi_range(0, 5),
+			"flag": rng.randf() < 0.5  # Random boolean
+		}
+		actions.append({
+			"id": i,
+			"name": action_name,
+			"script": script_name,
+			"vars": vars
+		})
+
 	MyDbUtils.insert_db_table_data(db2, DB_TABLE_NAME_ACTIONS_BASE2, actions)
