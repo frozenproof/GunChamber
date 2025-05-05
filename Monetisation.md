@@ -52,14 +52,21 @@ Cookie Crumbs represent a partial refund system that encourages continued play:
 
 ### Cookie Packages (Premium)
 
+Bonus cookies are obtained after first purchase for that specific time.
+
+The bonus are reset after the time passed.
+
+
+
 | Package Type | Cost | Contents | Notes |
 |--------------|------|----------|-------|
 | **Daily Deal** | $0.50 | 1 cookie + 2 bonus cookies | Marked as "Best Deal" (despite weekly options being better value) |
-| **Standard Package** | $8.00 | 10 cookies + 20 bonus cookies | Always available |
+| **Standard Package** | $8.00 | 10 cookies + 25 bonus cookies | Always available |
 | **Weekly Package - Small** | $2.00 | 5 cookies + 8 bonus cookies | Weekly purchase limit |
 | **Weekly Package - Medium** | $3.00 | 7 cookies + 10 bonus cookies | Weekly purchase limit |
 | **Weekly Package - Large** | $6.00 | 10 cookies + 13 bonus cookies | Weekly purchase limit |
 | **Monthly Whale Package** | $100.00 | 300 cookies + 450 bonus cookies | Monthly purchase limit |
+| **First Time Package** | $2.00 | 10 cookies + 16 bonus cookies + 30 days EXP up + 30 days Drop rate up | Once per account |
 
 ---
 
@@ -72,13 +79,14 @@ The game features different banner types with varying costs and drop rates:
 | **Standard Banner** | 3 cookies | 30 cookies | 10% | Regular rotation of items |
 | **Special Rate-Up Banner** | 1 cookie (first pull only) | 15 cookies (first multi-pull only) | 25% | Limited-time special items |
 | **Returning Banner** | 3 cookies total for first 3 pulls | 22 cookies total for first 22 pulls | 15% | Previous limited banners return with discount |
+| **Free Banner** | No cookies | No cookies | 100% | Free randomized rewards daily, 3 chances of randomizing |
 
 ### Banner Mechanics
 
 * After obtaining all rate-up items from a banner, players can choose different rate-up item sets during the banner period
 * Players can change their rate-up selection twice per banner period
 * Each change reduces the rate-up percentage by 10% of the original rate
-
+* Except for free banner
 ---
 
 ## Refund Mechanics
@@ -110,6 +118,16 @@ Players earn Cookie Dough through active playtime:
 |-----------|--------|
 | Active 30-day EXP/Drop Rate Ticket | +10 avatar pieces per ticket type (100 pieces = 1 avatar ticket) |
 | Any cookie purchase within past 30 days | 1 avatar ticket piece daily for 30 consecutive days |
+| First login after 14 days of inactivities | 1 single avatar ticket |
+| First login after 30 days of inactivities | 2 avatar tickets + start dash campaign |
+| First login after 100 days of inactivities | 10 avatar tickets + 10 cookies + start dash campaign |
+
+### Start Dash Campaign
+
+For both new and old players:
+
+- 14 days login streak bonus:
+  - Day
 
 ---
 
@@ -123,7 +141,7 @@ Players earn Cookie Dough through active playtime:
 | Permanent Expansion | +1 slot | 3 cookies per slot |
 | F2P Expansion | Additional slots | Requires boss materials (progressive difficulty) |
 | Premium Buff Expansion | +100 slots | Requires active 30-day EXP/Drop Rate Ticket |
-| Recent Purchase Bonus | +30 slots | Active for 30 days after first-time cookie purchase |
+| Recent Purchase Bonus | +30 slots | Active for 30 days after latest-time cookie purchase |
 
 ### NPC Storage System
 

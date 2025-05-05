@@ -5,12 +5,12 @@ extends CharacterBody3D
 @onready var menu: Control = $Menu
 
 @export var SENSITIVITY := 0.009
-@export var INITIAL_CAMERA_DISTANCE := 5.0
-@export var MIN_CAMERA_DISTANCE := 1.0    # How close camera can zoom in
-@export var MAX_CAMERA_DISTANCE := 10.0   # How far camera can zoom out
-@export var ZOOM_SPEED := 0.5             # How fast the zoom is
+@export var INITIAL_CAMERA_DISTANCE := 3.0
+@export var MIN_CAMERA_DISTANCE := 2.0    # How close camera can zoom in
+@export var MAX_CAMERA_DISTANCE := 6.0   # How far camera can zoom out
+@export var ZOOM_SPEED := 0.1             # How fast the zoom is
 @export var MIN_VERTICAL_ANGLE := -PI/3   # Prevent looking too far down
-@export var MAX_VERTICAL_ANGLE := PI/3    # Prevent looking too far up
+@export var MAX_VERTICAL_ANGLE := PI/8    # Prevent looking too far up
 @export var ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -114,6 +114,7 @@ func update_camera() -> void:
 	
 	# Ensure camera_pivot position is at character's position
 	camera_pivot.global_position = global_position
+	#print("global position is "+ str(global_position))
 	
 	# If there's a camera as child of the pivot, update its position
 	if camera_pivot.has_node("Camera3D"):
