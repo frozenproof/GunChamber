@@ -43,8 +43,8 @@ A 3D parkour-style game built with Godot Engine, featuring player movement mecha
 2. **Action System**
    - `ActionManager`: Manages all player actions
    - Modular action system with:
-     - `MoveAction`: Basic player movement
-     - `JumpAction`: Jump and wall-jump mechanics
+	 - `MoveAction`: Basic player movement
+	 - `JumpAction`: Jump and wall-jump mechanics
 
 3. **Level Generation (`level_setup.gd`)**
    - Creates the game environment

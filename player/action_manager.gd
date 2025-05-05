@@ -11,7 +11,7 @@ const SKILL_ACTION_ID = 3
 func _ready() -> void:
 	_initialize()
 	_load_core_actions()
-	print("Action manager loaded")
+	# print("Action manager loaded")
 
 func _initialize() -> void:
 	player = get_parent() as CharacterBody3D
