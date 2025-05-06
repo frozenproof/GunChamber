@@ -147,10 +147,10 @@ func toggle_game_pause() -> void:
 	game_paused = !game_paused
 	
 	if game_paused:
-		hud.hide_menu()
+		hud.hide_hud()
 		menu.show_menu()
 	else:
-		hud.show_menu()
+		hud.show_hud()
 		menu.hide_menu()
 
 func _on_resume_game() -> void:
