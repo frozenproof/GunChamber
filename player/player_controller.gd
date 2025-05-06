@@ -4,11 +4,11 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var menu: Control = $Menu
 
-@export var SENSITIVITY := 0.009
+@export var SENSITIVITY := 0.019
 @export var INITIAL_CAMERA_DISTANCE := 3.0
 @export var MIN_CAMERA_DISTANCE := 2.0    # How close camera can zoom in
-@export var MAX_CAMERA_DISTANCE := 6.0   # How far camera can zoom out
-@export var ZOOM_SPEED := 0.1             # How fast the zoom is
+@export var MAX_CAMERA_DISTANCE := 5.5   # How far camera can zoom out
+@export var ZOOM_SPEED := 0.08             # How fast the zoom is
 @export var MIN_VERTICAL_ANGLE := -PI/3   # Prevent looking too far down
 @export var MAX_VERTICAL_ANGLE := PI/8    # Prevent looking too far up
 @export var ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
@@ -18,6 +18,8 @@ var game_paused := false
 var camera_panning := false
 var camera_distance := INITIAL_CAMERA_DISTANCE
 var camera_rotation := Vector2.ZERO      # Store camera rotation separate from character rotation
+var previous_camera_rotation : Vector2      # Store camera rotation separate from character rotation
+var previous_camera_position: Vector3
 
 func _ready() -> void:
 	assert(action_manager != null, "ActionManager node not found!")
@@ -99,11 +101,11 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_WHEEL_UP:
 			# Zoom in
-			camera_distance = max(MIN_CAMERA_DISTANCE, camera_distance - ZOOM_SPEED)
+			camera_distance = max(MIN_CAMERA_DISTANCE, camera_distance - ZOOM_SPEED*camera_distance)
 			update_camera()
 		elif event.button_index == MOUSE_BUTTON_WHEEL_DOWN:
 			# Zoom out
-			camera_distance = min(MAX_CAMERA_DISTANCE, camera_distance + ZOOM_SPEED)
+			camera_distance = min(MAX_CAMERA_DISTANCE, camera_distance + ZOOM_SPEED*camera_distance)
 			update_camera()
 
 # Update camera position and orientation based on current values
@@ -111,6 +113,7 @@ func update_camera() -> void:
 	# Set camera pivot rotation
 	camera_pivot.rotation.x = camera_rotation.x
 	camera_pivot.rotation.y = camera_rotation.y
+	#camera_pivot.rotation.z = camera_pivot.rotation.z +1
 	
 	# Ensure camera_pivot position is at character's position
 	camera_pivot.global_position = global_position
@@ -122,6 +125,19 @@ func update_camera() -> void:
 		
 		# Position camera at the correct distance (negative Z is forward in Godot)
 		camera.position = Vector3(camera.position.x, camera.position.y, camera_distance)
+		# print("\n\nCamera position\n"+str(camera.position))
+
+		# Only print if the position has changed
+		# if not previous_camera_position or camera.position != previous_camera_position:
+		# 	print("\n\nCamera position\n"+str(camera.position))
+		# 	print("\n\nPrevious Camera position\n"+str(previous_camera_position))
+		# 	previous_camera_position = camera.position
+
+		# Only print if the position has changed
+		if not previous_camera_rotation or previous_camera_rotation != Vector2(snapped(camera_pivot.rotation.x,0.1),snapped(camera_pivot.rotation.y,0.1)):
+			previous_camera_rotation = Vector2(snapped(camera_pivot.rotation.x,0.1),snapped(camera_pivot.rotation.y,0.1))
+			print("\n\nPrevious Camera rotation \n"+str(previous_camera_rotation))
+			# print("\nCamera rotation\n"+str(camera_pivot.rotation))
 
 func toggle_game_pause() -> void:
 	game_paused = !game_paused

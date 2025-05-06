@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://ctbxn0skwjve"]
+[gd_scene load_steps=8 format=3 uid="uid://ctbxn0skwjve"]
 
 [ext_resource type="Script" uid="uid://bn3rg5wcgeetd" path="res://player/player_controller.gd" id="1_fb3t6"]
 [ext_resource type="PackedScene" uid="uid://cf64f3k4ph6vx" path="res://barbara/barbara_from_genshin_impact.glb" id="2_fb3t6"]
 [ext_resource type="Script" uid="uid://dyb8qcxw64hbm" path="res://player/action_manager.gd" id="3_vd578"]
 [ext_resource type="PackedScene" uid="uid://c5guillunvc0o" path="res://gui/menu.tscn" id="4_c7tqt"]
+[ext_resource type="PackedScene" uid="uid://8mroskmf58mm" path="res://gui/hud.tscn" id="5_thrwd"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_bu0v1"]
 
@@ -35,3 +36,5 @@ transform = Transform3D(-0.09, 0, -7.86805e-09, 0, 0.09, 0, 7.86805e-09, 0, -0.0
 script = ExtResource("3_vd578")
 
 [node name="Menu" parent="." instance=ExtResource("4_c7tqt")]
+
+[node name="HUD" parent="." instance=ExtResource("5_thrwd")]
