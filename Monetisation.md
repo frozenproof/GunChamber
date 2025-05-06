@@ -121,13 +121,22 @@ Players earn Cookie Dough through active playtime:
 | First login after 14 days of inactivities | 1 single avatar ticket |
 | First login after 30 days of inactivities | 2 avatar tickets + start dash campaign |
 | First login after 100 days of inactivities | 10 avatar tickets + 10 cookies + start dash campaign |
+| First login ever | 1 avatar tickets + 3 cookies + start dash campaign |
 
 ### Start Dash Campaign
 
-For both new and old players:
+For both new and returning players:
 
 - 14 days login streak bonus:
-  - Day
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
+  - Day 1: 2 cookies + 20 doughs
 
 ---
 
