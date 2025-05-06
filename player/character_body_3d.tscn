@@ -37,6 +37,7 @@ transform = Transform3D(0.09, 0, 0, 0, 0.09, 0, 0, 0, 0.09, 0, 0, 0)
 [node name="ActionManager" type="Node" parent="."]
 script = ExtResource("3_vd578")
 
-[node name="Menu" parent="." instance=ExtResource("4_c7tqt")]
-
 [node name="HUD" parent="." instance=ExtResource("5_thrwd")]
+
+[node name="Menu" parent="." instance=ExtResource("4_c7tqt")]
+visible = false

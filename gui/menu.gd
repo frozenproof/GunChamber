@@ -1,5 +1,5 @@
 extends Control
-class_name Hud
+class_name Menu
 
 signal resume_game
 signal settings

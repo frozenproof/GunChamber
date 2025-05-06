@@ -10,8 +10,8 @@ extends CharacterBody3D
 @export var MIN_CAMERA_DISTANCE := 2.0    # How close camera can zoom in
 @export var MAX_CAMERA_DISTANCE := 5.5   # How far camera can zoom out
 @export var ZOOM_SPEED := 0.08             # How fast the zoom is
-@export var MIN_VERTICAL_ANGLE := -PI/3   # Prevent looking too far down
-@export var MAX_VERTICAL_ANGLE := PI/8    # Prevent looking too far up
+@export var MIN_VERTICAL_ANGLE := -PI/4   # Prevent looking too far down
+@export var MAX_VERTICAL_ANGLE := PI/4    # Prevent looking too far up
 @export var MODEL_ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
@@ -147,8 +147,10 @@ func toggle_game_pause() -> void:
 	game_paused = !game_paused
 	
 	if game_paused:
+		hud.hide_menu()
 		menu.show_menu()
 	else:
+		hud.show_menu()
 		menu.hide_menu()
 
 func _on_resume_game() -> void:
