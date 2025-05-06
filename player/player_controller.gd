@@ -127,17 +127,18 @@ func update_camera() -> void:
 		camera.position = Vector3(camera.position.x, camera.position.y, camera_distance)
 		# print("\n\nCamera position\n"+str(camera.position))
 
-		# Only print if the position has changed
+		# Only print if the position of camera has changed
 		# if not previous_camera_position or camera.position != previous_camera_position:
 		# 	print("\n\nCamera position\n"+str(camera.position))
 		# 	print("\n\nPrevious Camera position\n"+str(previous_camera_position))
 		# 	previous_camera_position = camera.position
 
-		# Only print if the position has changed
-		if not previous_camera_rotation or previous_camera_rotation != Vector2(snapped(camera_pivot.rotation.x,0.1),snapped(camera_pivot.rotation.y,0.1)):
-			previous_camera_rotation = Vector2(snapped(camera_pivot.rotation.x,0.1),snapped(camera_pivot.rotation.y,0.1))
-			print("\n\nPrevious Camera rotation \n"+str(previous_camera_rotation))
+		# Only print if the rotation of camera pivot has changed
+		# if not previous_camera_rotation or previous_camera_rotation != Vector2(snapped(camera_pivot.rotation.x,0.1),snapped(camera_pivot.rotation.y,0.1)):
+		# 	previous_camera_rotation = Vector2(snapped(camera_pivot.rotation.x,0.1),snapped(camera_pivot.rotation.y,0.1))
+			# print("\n\nPrevious Camera rotation \n"+str(previous_camera_rotation))
 			# print("\nCamera rotation\n"+str(camera_pivot.rotation))
+		
 
 func toggle_game_pause() -> void:
 	game_paused = !game_paused

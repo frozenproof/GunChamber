@@ -1,4 +1,6 @@
-[gd_scene format=3 uid="uid://8mroskmf58mm"]
+[gd_scene load_steps=2 format=3 uid="uid://8mroskmf58mm"]
+
+[ext_resource type="Texture2D" uid="uid://bhnlpb0548nyh" path="res://icon.svg" id="1_350da"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -24,3 +26,7 @@ layout_mode = 2
 text = "Compass"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+texture = ExtResource("1_350da")

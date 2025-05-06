@@ -19,8 +19,17 @@ func can_execute(_p_player: CharacterBody3D) -> bool:
 
 func execute(_p_player: CharacterBody3D, _delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
-	var direction = (player.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
+	# Get the camera's rotation
+	var camera_pivot = player.get_node("CameraPivot")
+	var camera_rotation = camera_pivot.rotation.y
+	
+	# Create the movement direction vector based on input
+	var direction = Vector3(input_dir.x, 0, input_dir.y).normalized()
+	
+	# Rotate the direction vector by the camera's Y rotation
+	direction = direction.rotated(Vector3.UP, camera_rotation)
+
 	if direction:
 		player.velocity.x = move_toward(player.velocity.x, direction.x * move_speed, acceleration * _delta)
 		player.velocity.z = move_toward(player.velocity.z, direction.z * move_speed, acceleration * _delta)
