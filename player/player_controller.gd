@@ -11,7 +11,7 @@ extends CharacterBody3D
 @export var ZOOM_SPEED := 0.08             # How fast the zoom is
 @export var MIN_VERTICAL_ANGLE := -PI/3   # Prevent looking too far down
 @export var MAX_VERTICAL_ANGLE := PI/8    # Prevent looking too far up
-@export var ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
+@export var MODEL_ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
 
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var game_paused := false

@@ -33,6 +33,16 @@ func execute(_p_player: CharacterBody3D, _delta: float) -> void:
 	if direction:
 		player.velocity.x = move_toward(player.velocity.x, direction.x * move_speed, acceleration * _delta)
 		player.velocity.z = move_toward(player.velocity.z, direction.z * move_speed, acceleration * _delta)
+
+		# Calculate target rotation
+		var target_rotation = atan2(direction.x, direction.z)
+		
+		# Get the ModelPivot node and rotate it
+		var model_pivot = player.get_node_or_null("ModelPivot")
+		if model_pivot:
+			model_pivot.rotation.y = lerp_angle(model_pivot.rotation.y, target_rotation, player.MODEL_ROTATION_SPEED * _delta)
+		else:
+			push_warning("ModelPivot node not found in player scene tree")
 	else:
 		player.velocity.x = move_toward(player.velocity.x, 0, deceleration * _delta)
 		player.velocity.z = move_toward(player.velocity.z, 0, deceleration * _delta)

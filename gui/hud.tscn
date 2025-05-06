@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://8mroskmf58mm"]
+[gd_scene load_steps=3 format=3 uid="uid://8mroskmf58mm"]
 
 [ext_resource type="Texture2D" uid="uid://bhnlpb0548nyh" path="res://icon.svg" id="1_350da"]
+[ext_resource type="Texture2D" uid="uid://dxsuu7lqki50k" path="res://Texture/icon/pause-button-png-29658.png" id="2_u7rvv"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
@@ -8,25 +9,41 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="MapPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 1018.0
-offset_top = 511.0
-offset_right = 1142.0
-offset_bottom = 639.0
+offset_left = 1011.0
+offset_top = 479.0
+offset_right = 1139.0
+offset_bottom = 634.0
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="MapPanelContainer"]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MapPanelContainer/MarginContainer"]
 layout_mode = 2
 
-[node name="Compass" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Compass" type="Label" parent="MapPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 text = "Compass"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer/VBoxContainer"]
+[node name="CompassTextureRect" type="TextureRect" parent="MapPanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 texture = ExtResource("1_350da")
+
+[node name="MapTextureRect" type="TextureRect" parent="MapPanelContainer"]
+layout_mode = 2
+
+[node name="PausePanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="PauseMarginContainer" type="MarginContainer" parent="PausePanelContainer"]
+layout_mode = 2
+
+[node name="PauseTextureRect" type="TextureRect" parent="PausePanelContainer"]
+layout_mode = 2
+texture = ExtResource("2_u7rvv")
+expand_mode = 3
