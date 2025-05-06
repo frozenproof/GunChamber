@@ -1,9 +1,7 @@
 extends Control
 class_name Hud
 
-signal resume_game
-signal settings
-signal quit_game
+signal toggle_chat
 signal toggle_pause
 
 @onready var chat_button = $ChatPanelContainer/ChatButton
@@ -15,12 +13,6 @@ func _ready() -> void:
 
 func _on_resume_pressed() -> void:
 	emit_signal("resume_game")
-
-func _on_settings_pressed() -> void:
-	# TODO: Implement settings panel
-	emit_signal("settings")
-	print("Settings pressed")
-	hide_menu()
 
 func _on_quit_pressed() -> void:
 	emit_signal("quit_game")

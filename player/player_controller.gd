@@ -7,7 +7,7 @@ extends CharacterBody3D
 
 @export var SENSITIVITY := 0.019
 @export var INITIAL_CAMERA_DISTANCE := 3.0
-@export var MIN_CAMERA_DISTANCE := 2.0    # How close camera can zoom in
+@export var MIN_CAMERA_DISTANCE := 1.5    # How close camera can zoom in
 @export var MAX_CAMERA_DISTANCE := 5.5   # How far camera can zoom out
 @export var ZOOM_SPEED := 0.08             # How fast the zoom is
 @export var MIN_VERTICAL_ANGLE := -PI/4   # Prevent looking too far down
