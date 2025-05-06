@@ -5,7 +5,7 @@
 
 [node name="Node3D" type="Node3D"]
 
-[node name="Node3D" parent="." instance=ExtResource("1_l8cwu")]
+[node name="SunLightNode3D" parent="." instance=ExtResource("1_l8cwu")]
 
 [node name="CharacterBody3D" parent="." instance=ExtResource("2_hh6nd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.04742, 0)

@@ -9,6 +9,27 @@ anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
+[node name="PausePanelContainer" type="PanelContainer" parent="."]
+offset_left = 1011.0
+offset_top = 479.0
+offset_right = 1139.0
+offset_bottom = 634.0
+
+[node name="PauseButton" type="MenuButton" parent="PausePanelContainer"]
+layout_mode = 2
+icon = ExtResource("2_u7rvv")
+switch_on_hover = true
+
+[node name="ChatButton" type="MenuButton" parent="."]
+layout_mode = 2
+offset_left = 1075.0
+offset_top = 3.0
+offset_right = 1595.0
+offset_bottom = 523.0
+scale = Vector2(0.13953, 0.128469)
+icon = ExtResource("2_u7rvv")
+switch_on_hover = true
+
 [node name="MapPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
 offset_left = 1011.0
@@ -34,16 +55,3 @@ texture = ExtResource("1_350da")
 
 [node name="MapTextureRect" type="TextureRect" parent="MapPanelContainer"]
 layout_mode = 2
-
-[node name="PausePanelContainer" type="PanelContainer" parent="."]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="PauseMarginContainer" type="MarginContainer" parent="PausePanelContainer"]
-layout_mode = 2
-
-[node name="PauseTextureRect" type="TextureRect" parent="PausePanelContainer"]
-layout_mode = 2
-texture = ExtResource("2_u7rvv")
-expand_mode = 3

@@ -3,6 +3,7 @@ extends CharacterBody3D
 @onready var action_manager: ActionManager = $ActionManager
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var menu: Control = $Menu
+@onready var hud: Control = $HUD # Add reference to HUD
 
 @export var SENSITIVITY := 0.019
 @export var INITIAL_CAMERA_DISTANCE := 3.0
@@ -25,11 +26,13 @@ func _ready() -> void:
 	assert(action_manager != null, "ActionManager node not found!")
 	assert(camera_pivot != null, "CameraPivot node not found!")
 	assert(menu != null, "Menu not found!")
-	
+	assert(hud != null, "HUD not found!")
+
 	menu.resume_game.connect(_on_resume_game)
 	menu.settings.connect(_on_settings_new)
 	menu.quit_game.connect(_on_quit_game)
-	
+	hud.toggle_pause.connect(toggle_game_pause)	
+
 	# Always keep mouse visible
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	print("Player Controller: Initialized")
