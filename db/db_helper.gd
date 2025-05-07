@@ -123,24 +123,98 @@ static func insert_db_table_data(db: SQLite, DB_TABLE_NAME_FUNC: String, items: 
 		]
 		
 		# print(str(sql))
-		var result = db.query(sql)
+		var _result = db.query(sql)
 		# if result != OK:
 		# 	push_error("[DB_Helper] Failed to insert item: %s" % str(item))
 		# else:
 		#     print("[DB_Helper] Successfully inserted item: %s" % str(item))
 
-static func update_db_table_variables(db: SQLite, DB_TABLE_NAME_FUNC: String, id: int, variables: Dictionary) -> void:
-	var vars_json = JSON.stringify(variables)
-	vars_json = vars_json.replace("'", "''")
+static func update_db_table_data(db: SQLite, DB_TABLE_NAME_FUNC: String, updates: Array, template_name: String = "default_table", where_field: String = "id") -> void:
+	# Get templates
+	templates = TemplateLoader.load_templates()
+	if not templates.has(template_name):
+		push_error("Template '%s' not found!" % template_name)
+		return
+		
+	var table_structure = templates[template_name]
 	var current_time = Time.get_unix_time_from_system()
 	
-	var query = """
-		UPDATE '%s' 
-		SET variables = '%s', updated_at = %d
-		WHERE id = %d
-	""" % [DB_TABLE_NAME_FUNC, vars_json, current_time, id]
-	
-	db.query(query)
+	for update_data in updates:
+		if not update_data.has(where_field):
+			push_error("[DB_Helper] Update data missing required field: %s" % where_field)
+			continue
+			
+		# Prepare SET clause parts
+		var set_parts = []
+		var where_value = null
+		
+		# Handle each field defined in the template
+		for column_name in table_structure.keys():
+			var column_type = table_structure[column_name]
+			var value = null
+			
+			# Skip the where_field as it's used in WHERE clause
+			if column_name == where_field:
+				where_value = update_data[where_field]
+				continue
+				
+			# Special handling for timestamp fields
+			match column_name:
+				"updated_at":
+					value = current_time
+				_:
+					# For other fields, only include if they exist in update_data
+					if not update_data.has(column_name):
+						continue
+					value = update_data[column_name]
+			
+			# Format the value based on its type
+			var formatted_value = ""
+			match column_type:
+				"TEXT", "TEXT NOT NULL":
+					if typeof(value) == TYPE_DICTIONARY:
+						value = JSON.stringify(value).replace("'", "''")
+					elif value != null:
+						value = String(value).replace("'", "''")
+					formatted_value = "'%s'" % value if value != null else "NULL"
+				"INTEGER", "INTEGER PRIMARY KEY":
+					formatted_value = str(value) if value != null else "NULL"
+				"JSON":
+					if value != null:
+						value = JSON.stringify(value).replace("'", "''")
+						formatted_value = "'%s'" % value
+					else:
+						formatted_value = "NULL"
+				_:
+					formatted_value = "'%s'" % str(value) if value != null else "NULL"
+			
+			set_parts.append("%s = %s" % [column_name, formatted_value])
+		
+		# Format where_value
+		var where_formatted_value = ""
+		match table_structure[where_field]:
+			"TEXT", "TEXT NOT NULL":
+				where_formatted_value = "'%s'" % String(where_value).replace("'", "''")
+			_:
+				where_formatted_value = str(where_value)
+		
+		# Construct and execute the UPDATE query
+		var sql = """
+			UPDATE '%s'
+			SET %s
+			WHERE %s = %s
+		""" % [
+			DB_TABLE_NAME_FUNC,
+			", ".join(set_parts),
+			where_field,
+			where_formatted_value
+		]
+		
+		var _result = db.query(sql)
+		#if result != OK:
+			#push_error("[DB_Helper] Failed to update item with %s = %s" % [where_field, where_value])
+		# else:
+		#     print("[DB_Helper] Successfully updated item with %s = %s" % [where_field, where_value])
 
 # Always get all columns so nothing to care about that
 static func get_db_table_data_id(db: SQLite, DB_TABLE_NAME_FUNC: String, id: int) -> Dictionary:
