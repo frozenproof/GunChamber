@@ -1,8 +1,12 @@
-class_name MyDbUtils
+class_name DbHelperUtils
 
 static var DB_PATH_MAIN = "res://data/"
 static var DB_PATH_BASE_ACTIONS = DB_PATH_MAIN + "base_action.db"
 static var DB_TABLE_NAME_ACTIONS_BASE = "actions"
+static var DB_PATH_BASE_MAPS = DB_PATH_MAIN + "maps.db"
+static var DB_TABLE_NAME_MAPS = "maps"
+
+static var db_GC_MAIN: SQLite
 
 static func create_new_db(db: SQLite, DB_TABLE_NAME_FUNC:String, DB_PATH: String) -> void:
 	# Create the table
@@ -25,7 +29,7 @@ static func get_db_table_data_id(db: SQLite, DB_TABLE_NAME_FUNC: String, id: int
 	var where = "id = %d" % id
 	var result = db.select_rows(DB_TABLE_NAME_FUNC, where, columns)
 
-	#print("[ActionDBManager] Query result for id %d: " % id, result) # Debug print
+	#print("[DBManager] Query result for id %d: " % id, result) # Debug print
 	
 	if result is Array and result.size() > 0:
 		var row = result[0]
@@ -48,7 +52,7 @@ static func insert_db_table_data(db: SQLite, DB_TABLE_NAME_FUNC: String, actions
 			DB_TABLE_NAME_FUNC, action.id, action.name,
 			action.script, vars_json, current_time, current_time
 		]
-		var result = db.query(sql)
+		var _result = db.query(sql)
 		# print("[DB_Helper] %s insert result: %s" % [action.name.capitalize(), result])
 
 static func update_db_table_variables(db: SQLite, DB_TABLE_NAME_FUNC: String, id: int, variables: Dictionary) -> void:

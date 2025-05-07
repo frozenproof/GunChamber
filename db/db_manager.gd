@@ -1,29 +1,31 @@
-class_name ActionDBManager
+class_name DBManager
 extends Node
 
-var DB_PATH_ACTION = MyDbUtils.DB_PATH_BASE_ACTIONS
-var DB_TABLE_NAME_ACTIONS_BASE2 = MyDbUtils.DB_TABLE_NAME_ACTIONS_BASE
+var DB_PATH_ACTION = DbHelperUtils.DB_PATH_BASE_ACTIONS
+var DB_TABLE_NAME_ACTIONS_BASE2 = DbHelperUtils.DB_TABLE_NAME_ACTIONS_BASE
+var DB_PATH_MAP = DbHelperUtils.DB_PATH_BASE_MAPS
+var DB_TABLE_NAME_MAP2 = DbHelperUtils.DB_TABLE_NAME_MAPS
 
-var db: SQLite
+var db_GC_MAIN = DbHelperUtils.db_GC_MAIN
 
 func _init() -> void:
-	print("[ActionDBManager] Initializing...")
-	db = SQLite.new()
-	db.path = DB_PATH_ACTION
+	print("[DBManager] Initializing...")
+	db_GC_MAIN = SQLite.new()
+	db_GC_MAIN.path = DB_PATH_ACTION
 	_ensure_database()
 
 func _ensure_database() -> void:
 	# Ensure the data directory exists
 	if (FileAccess.file_exists(DB_PATH_ACTION)):
-		db.open_db()
+		db_GC_MAIN.open_db()
 	else:
-		db.open_db()
-		print("\n\n\n[ActionDBManager] Creating tables...\n\n\n")
-		MyDbUtils.create_new_db(db,DB_TABLE_NAME_ACTIONS_BASE2,DB_PATH_ACTION)
-		insert_base_actions_data(db)
+		db_GC_MAIN.open_db()
+		print("\n\n\n[DBManager] Creating tables...\n\n\n")
+		DbHelperUtils.create_new_db(db_GC_MAIN,DB_TABLE_NAME_ACTIONS_BASE2,DB_PATH_ACTION)
+		insert_base_actions_data(db_GC_MAIN)
 
 func get_action_data(id: int) -> Dictionary:
-	var result = MyDbUtils.get_db_table_data_id(db, DB_TABLE_NAME_ACTIONS_BASE2, id)
+	var result = DbHelperUtils.get_db_table_data_id(db_GC_MAIN, DB_TABLE_NAME_ACTIONS_BASE2, id)
 	return result
 
 func insert_base_actions_data(db2: SQLite) -> void:
@@ -61,4 +63,4 @@ func insert_base_actions_data(db2: SQLite) -> void:
 			"vars": vars
 		})
 
-	MyDbUtils.insert_db_table_data(db2, DB_TABLE_NAME_ACTIONS_BASE2, actions)
+	DbHelperUtils.insert_db_table_data(db2, DB_TABLE_NAME_ACTIONS_BASE2, actions)

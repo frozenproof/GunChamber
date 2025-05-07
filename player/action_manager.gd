@@ -3,9 +3,9 @@ extends Node
 
 var actions: Dictionary = {}
 var player: CharacterBody3D
-var db_manager: ActionDBManager
+var db_manager: DBManager
 
-const CORE_ACTION_ID = 2
+const CORE_ACTION_ID = 1000
 const SKILL_ACTION_ID = 3
 
 func _ready() -> void:
@@ -17,7 +17,7 @@ func _initialize() -> void:
 	player = get_parent() as CharacterBody3D
 	assert(player != null, "ActionManager must be a child of CharacterBody3D")
 	
-	db_manager = ActionDBManager.new()
+	db_manager = DBManager.new()
 	add_child(db_manager)
 
 func _load_core_actions() -> void:
@@ -61,7 +61,6 @@ func _load_action(action_id: int) -> void:
 	
 	actions[action_data.name] = action
 	print("[ActionManager] Successfully loaded action: ", actions)
-
 
 func execute_action(action_name: String, delta: float) -> void:
 	if not actions.has(action_name):
