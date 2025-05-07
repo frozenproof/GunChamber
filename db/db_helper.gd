@@ -232,3 +232,116 @@ static func get_db_table_data_id(db: SQLite, DB_TABLE_NAME_FUNC: String, id: int
 				row["variables"] = JSON.parse_string(row["variables"])
 			return row
 	return {}
+	
+static func get_db_records(db: SQLite, DB_TABLE_NAME_FUNC: String, template_name: String = "default_table", 
+						 filters: Dictionary = {}, limit: int = 0, order_by: String = "") -> Array:
+	# Get templates
+	templates = TemplateLoader.load_templates()
+	if not templates.has(template_name):
+		push_error("Template '%s' not found!" % template_name)
+		return []
+		
+	var table_structure = templates[template_name]
+	
+	# Build WHERE clause from filters
+	var where_conditions = []
+	var where_values = []
+	
+	for field in filters:
+		if not table_structure.has(field):
+			push_error("[DB_Helper] Invalid filter field: %s" % field)
+			continue
+			
+		var value = filters[field]
+		var column_type = table_structure[field]
+		
+		# Handle different types of filters
+		if typeof(value) == TYPE_DICTIONARY:
+			# Handle operators like >, <, >=, <=, !=
+			for operator in value:
+				var formatted_value = _format_value_for_query(value[operator], column_type)
+				where_conditions.append("%s %s %s" % [field, operator, formatted_value])
+		else:
+			# Simple equality filter
+			var formatted_value = _format_value_for_query(value, column_type)
+			where_conditions.append("%s = %s" % [field, formatted_value])
+	
+	# Construct the SELECT query
+	var sql = "SELECT * FROM '%s'" % DB_TABLE_NAME_FUNC
+	
+	if not where_conditions.is_empty():
+		sql += " WHERE " + " AND ".join(where_conditions)
+	
+	if not order_by.is_empty():
+		sql += " ORDER BY " + order_by
+	
+	if limit > 0:
+		sql += " LIMIT " + str(limit)
+	
+	var result = db.query(sql)
+	if typeof(result) != TYPE_ARRAY:
+		push_error("[DB_Helper] Query failed: %s" % sql)
+		return []
+	
+	# Process the results
+	var processed_results = []
+	for row in result:
+		var processed_row = {}
+		
+		for field in row:
+			var value = row[field]
+			
+			# Skip null values
+			if value == null:
+				processed_row[field] = null
+				continue
+			
+			# Handle different types based on template
+			match table_structure[field]:
+				"JSON":
+					if typeof(value) == TYPE_STRING:
+						var json = JSON.new()
+						var parse_result = json.parse(value)
+						if parse_result == OK:
+							processed_row[field] = json.get_data()
+						else:
+							processed_row[field] = value
+					else:
+						processed_row[field] = value
+				
+				"INTEGER", "INTEGER PRIMARY KEY":
+					processed_row[field] = int(value)
+				
+				"TEXT", "TEXT NOT NULL":
+					processed_row[field] = str(value)
+				
+				_:
+					processed_row[field] = value
+			
+			# Convert timestamps to UTC formatted string
+			if field in ["created_at", "updated_at"] and value != null:
+				var datetime = Time.get_datetime_dict_from_unix_time(int(value))
+				processed_row[field] = "%04d-%02d-%02d %02d:%02d:%02d" % [
+					datetime.year, datetime.month, datetime.day,
+					datetime.hour, datetime.minute, datetime.second
+				]
+		
+		processed_results.append(processed_row)
+	
+	return processed_results
+
+# Helper function to format values for SQL queries
+static func _format_value_for_query(value, column_type: String) -> String:
+	match column_type:
+		"TEXT", "TEXT NOT NULL":
+			if typeof(value) == TYPE_DICTIONARY:
+				return "'%s'" % JSON.stringify(value).replace("'", "''")
+			return "'%s'" % str(value).replace("'", "''")
+		"INTEGER", "INTEGER PRIMARY KEY":
+			return str(value)
+		"JSON":
+			if typeof(value) == TYPE_DICTIONARY or typeof(value) == TYPE_ARRAY:
+				return "'%s'" % JSON.stringify(value).replace("'", "''")
+			return "'%s'" % str(value).replace("'", "''")
+		_:
+			return "'%s'" % str(value).replace("'", "''")
