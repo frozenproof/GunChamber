@@ -38,7 +38,7 @@ func insert_base_data(db2: SQLite) -> void:
 			"id": 2,
 			"name": "jump",
 			"script_name": "jump_action.gd",
-			"variables": {"jump_force": 4.5, "max_jumps": 2, "wall_jump_force": 2}
+			"variables": {"jump_force": 5.5, "max_jumps": 2, "wall_jump_force": 2}
 		},
 	]
 
