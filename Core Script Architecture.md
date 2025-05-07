@@ -79,8 +79,8 @@ extends Node
 class_name DBManager
 extends Node
 
-var DB_PATH_ACTION = DbHelperUtils.DB_PATH_BASE_ACTIONS
-var DB_TABLE_NAME_ACTIONS_BASE2 = DbHelperUtils.DB_TABLE_NAME_ACTIONS_BASE
+var DB_PATH_ACTION = DbHelper.DB_PATH_BASE_ACTIONS
+var DB_TABLE_NAME_ACTIONS_BASE2 = DbHelper.DB_TABLE_NAME_ACTIONS_BASE
 ```
 - Manages database connections and queries
 - Handles action and map data storage
@@ -88,7 +88,7 @@ var DB_TABLE_NAME_ACTIONS_BASE2 = DbHelperUtils.DB_TABLE_NAME_ACTIONS_BASE
 
 #### DB Helper (`db/db_helper.gd`)
 ```gdscript
-class_name DbHelperUtils
+class_name DbHelper
 
 static var DB_PATH_MAIN = "res://data/"
 static var DB_PATH_BASE_ACTIONS = DB_PATH_MAIN + "base_action.db"

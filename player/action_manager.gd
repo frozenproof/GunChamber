@@ -5,7 +5,7 @@ var actions: Dictionary = {}
 var player: CharacterBody3D
 var db_manager: DBManager
 
-const CORE_ACTION_ID = 1000
+const CORE_ACTION_ID = 2
 const SKILL_ACTION_ID = 3
 
 func _ready() -> void:

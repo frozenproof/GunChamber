@@ -92,3 +92,6 @@ Additional guidance:
 - Keep your analysis succinct and conversational.
 - Do not repeat or list the context details in your final response.
 - Provide a concise synthesis of the information, avoiding unnecessary repetition.
+
+# Remember
+use res:// if you want to bundle it with the game, can't be updated.

@@ -1,6 +1,6 @@
 extends Node3D
 
-var db_GC_MAIN = DbHelperUtils.db_GC_MAIN
+var db_GC_MAIN = DbHelper.db_GC_MAIN
 
 func _ready() -> void:
 	# Create floor
@@ -27,7 +27,7 @@ func _ready() -> void:
 	_create_wall(Vector3(0, 3, 8), Vector3(8, 6, 0.5))
 
 func load_map(map_id: int) -> void:
-	var map_data = DbHelperUtils.get_db_table_data_id(db_GC_MAIN, "maps", map_id)
+	var map_data = DbHelper.get_db_table_data_id(db_GC_MAIN, "maps", map_id)
 	
 	if map_data.empty():
 		print("[Error] Map data not found for ID: ", map_id)

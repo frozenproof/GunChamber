@@ -20,4 +20,5 @@ func can_execute(p_player: CharacterBody3D) -> bool:
 
 func execute(p_player: CharacterBody3D, delta: float) -> void:
 	assert(p_player != null, "Player reference cannot be null")
+	assert(delta != null, "Player delta cannot be null")
 	assert(false, "Execute must be implemented by derived classes")

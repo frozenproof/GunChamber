@@ -1,0 +1,18 @@
+{
+    "actions": {
+        "id": "INTEGER PRIMARY KEY",
+        "name": "TEXT NOT NULL",
+        "category": "TEXT NOT NULL",
+        "script_name": "TEXT NOT NULL",
+        "variables": "TEXT NOT NULL",
+        "created_at": "INTEGER",
+        "updated_at": "INTEGER"
+    },
+    "custom_table": {
+        "id": "INTEGER PRIMARY KEY",
+        "title": "TEXT NOT NULL",
+        "content": "TEXT",
+        "metadata": "JSON",
+        "timestamp": "INTEGER"
+    }
+}
