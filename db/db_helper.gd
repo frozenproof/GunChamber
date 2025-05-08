@@ -1,5 +1,6 @@
 class_name DbHelper
 
+# static var DB_PATH_MAIN = "user://data/"
 static var DB_PATH_MAIN = "res://data/"
 static var DB_PATH_GAME_META = "user://data/"
 static var DB_PATH_BASE_ACTIONS = DB_PATH_MAIN + "main_res.db"
@@ -84,7 +85,7 @@ static func insert_db_table_data(db: SQLite, DB_TABLE_NAME_FUNC: String, items: 
 					value = item.get(column_name)
 			
 			# Skip null values for new entries (but not for updates)
-			if value == null and not item.has("id"):
+			if not item.has("id") and value == null:
 				print("----------------------------------get skipped---------------------------------------")
 				continue
 				

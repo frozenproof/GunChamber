@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://8mroskmf58mm"]
 
-[ext_resource type="Texture2D" uid="uid://bhnlpb0548nyh" path="res://icon.svg" id="1_350da"]
+[ext_resource type="Texture2D" uid="uid://bhnlpb0548nyh" path="res://Texture/icon/icon.svg" id="1_350da"]
 [ext_resource type="Script" uid="uid://cdi1gvaud1dyy" path="res://gui/hud.gd" id="1_nejoa"]
 [ext_resource type="Texture2D" uid="uid://dxsuu7lqki50k" path="res://Texture/icon/pause-button-png-29658.png" id="2_u7rvv"]
 

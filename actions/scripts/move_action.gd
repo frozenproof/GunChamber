@@ -16,7 +16,7 @@ func initialize(p_player: CharacterBody3D) -> void:
 
 func can_execute(_p_player: CharacterBody3D) -> bool:
 	return action_enabled and player != null
-
+	
 func execute(_p_player: CharacterBody3D, _delta: float) -> void:
 	var input_dir = Input.get_vector("left", "right", "forward", "backward")
 	
@@ -31,8 +31,15 @@ func execute(_p_player: CharacterBody3D, _delta: float) -> void:
 	direction = direction.rotated(Vector3.UP, camera_rotation)
 
 	if direction:
+		# Store the current Y velocity to preserve vertical movement
+		var current_y_velocity = player.velocity.y
+		
+		# Update horizontal velocity
 		player.velocity.x = move_toward(player.velocity.x, direction.x * move_speed, acceleration * _delta)
 		player.velocity.z = move_toward(player.velocity.z, direction.z * move_speed, acceleration * _delta)
+		
+		# Restore vertical velocity
+		player.velocity.y = current_y_velocity
 
 		# Calculate target rotation
 		var target_rotation = atan2(direction.x, direction.z)
@@ -44,5 +51,12 @@ func execute(_p_player: CharacterBody3D, _delta: float) -> void:
 		else:
 			push_warning("ModelPivot node not found in player scene tree")
 	else:
+		# Store the current Y velocity
+		var current_y_velocity = player.velocity.y
+		
+		# Decelerate horizontal movement
 		player.velocity.x = move_toward(player.velocity.x, 0, deceleration * _delta)
 		player.velocity.z = move_toward(player.velocity.z, 0, deceleration * _delta)
+		
+		# Restore vertical velocity
+		player.velocity.y = current_y_velocity
