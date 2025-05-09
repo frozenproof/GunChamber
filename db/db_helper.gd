@@ -1,8 +1,9 @@
 class_name DbHelper
 
-# static var DB_PATH_MAIN = "user://data/"
-static var DB_PATH_MAIN = "res://data/"
-static var DB_PATH_GAME_META = "user://data/"
+static var DB_PATH_MAIN = "user://data/"
+#static var DB_PATH_MAIN = "res://data/"
+# static var DB_PATH_MAIN = "user://"
+#static var DB_PATH_GAME_META = "user://data/"
 static var DB_PATH_BASE_ACTIONS = DB_PATH_MAIN + "main_res.db"
 static var DB_TABLE_NAME_ACTIONS_BASE = "actions"
 static var DB_TABLE_NAME_MAPS = "maps"

@@ -17,6 +17,8 @@ func _ensure_database() -> void:
 	if (FileAccess.file_exists(DB_PATH_ACTION)):
 		db_GC_MAIN.open_db()
 	else:
+		var dir = DirAccess.open("user://")
+		dir.make_dir("data")  
 		db_GC_MAIN.open_db()
 		print("\n\n\n[DBManager] Creating tables...\n\n\n")
 		DbHelper.create_new_db(db_GC_MAIN,DB_TABLE_NAME_ACTIONS_BASE2,DB_PATH_ACTION,DB_TABLE_NAME_ACTIONS_BASE2)

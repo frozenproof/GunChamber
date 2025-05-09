@@ -18,7 +18,14 @@ func can_execute(_p_player: CharacterBody3D) -> bool:
 	return action_enabled and player != null
 	
 func execute(_p_player: CharacterBody3D, _delta: float) -> void:
-	var input_dir = Input.get_vector("left", "right", "forward", "backward")
+	var input_dir: Vector2
+	
+	if DisplayServer.is_touchscreen_available():
+		# Use the mobile input vector directly
+		input_dir = Vector2(_p_player.mobile_input_vector.x, _p_player.mobile_input_vector.y)
+	else:
+		# Use regular input for PC
+		input_dir = Input.get_vector("left", "right", "forward", "backward")
 	
 	# Get the camera's rotation
 	var camera_pivot = player.get_node("CameraPivot")

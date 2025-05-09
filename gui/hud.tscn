@@ -13,11 +13,11 @@ script = ExtResource("1_nejoa")
 
 [node name="MenuPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 3.0
-offset_top = 2.0
-offset_right = 523.0
-offset_bottom = 522.0
-scale = Vector2(0.120347, 0.115717)
+offset_left = 14.0
+offset_top = 565.0
+offset_right = 534.0
+offset_bottom = 1085.0
+scale = Vector2(0.13059, 0.133056)
 tooltip_text = "Settings"
 
 [node name="MenuButton" type="MenuButton" parent="MenuPanelContainer"]
@@ -39,11 +39,11 @@ toggle_mode = true
 
 [node name="MapPanelContainer" type="PanelContainer" parent="."]
 layout_mode = 0
-offset_left = 1011.0
-offset_top = 479.0
-offset_right = 1139.0
-offset_bottom = 634.0
-scale = Vector2(0.994346, 0.995342)
+offset_left = 978.0
+offset_top = 452.0
+offset_right = 1106.0
+offset_bottom = 607.0
+scale = Vector2(1.29718, 1.21898)
 
 [node name="MarginContainer" type="MarginContainer" parent="MapPanelContainer"]
 layout_mode = 2

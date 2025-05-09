@@ -4,6 +4,9 @@ extends CharacterBody3D
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var menu: Control = $Menu
 @onready var hud: Control = $HUD # Add reference to HUD
+# Add to existing player_controller.gd
+#@onready var mobile_hud: Control = null
+@onready var mobile_hud: Control = $MobileHUD
 
 @export var SENSITIVITY := 0.019
 @export var INITIAL_CAMERA_DISTANCE := 3.0
@@ -14,6 +17,7 @@ extends CharacterBody3D
 @export var MAX_VERTICAL_ANGLE := PI/4    # Prevent looking too far up
 @export var MODEL_ROTATION_SPEED := 10.0  # How quickly character rotates to face movement direction
 
+var mobile_input_vector := Vector2.ZERO
 var gravity = ProjectSettings.get_setting("physics/3d/default_gravity")
 var game_paused := false
 var camera_panning := false
@@ -27,6 +31,10 @@ func _ready() -> void:
 	assert(camera_pivot != null, "CameraPivot node not found!")
 	assert(menu != null, "Menu not found!")
 	assert(hud != null, "HUD not found!")
+	assert(mobile_hud != null, "Mobile HUD not found!")
+
+	# get my data dir
+	print(OS.get_data_dir())
 
 	menu.resume_game.connect(_on_resume_game)
 	menu.settings.connect(_on_settings_new)
@@ -40,6 +48,24 @@ func _ready() -> void:
 	# Initialize camera
 	camera_distance = INITIAL_CAMERA_DISTANCE
 	update_camera()
+
+	# Connect mobile control signals if available
+	if mobile_hud:
+		mobile_hud.move_input.connect(_on_mobile_move_input)
+		mobile_hud.jump_pressed.connect(_on_mobile_jump)
+	else:
+		print("fucking bitch")
+		#get_tree().quit()
+
+
+
+func _on_mobile_move_input(value: Vector2) -> void:
+	mobile_input_vector = value
+
+func _on_mobile_jump() -> void:
+	if not game_paused:
+		action_manager.execute_action("jump", get_physics_process_delta_time())
+
 	
 func _physics_process(delta: float) -> void:
 	if game_paused:
@@ -48,6 +74,11 @@ func _physics_process(delta: float) -> void:
 	if not action_manager:
 		push_error("ActionManager is null!")
 		return
+		
+	# Combine PC and mobile inputs
+	var input_vector = Input.get_vector("left", "right", "forward", "backward")
+	if DisplayServer.is_touchscreen_available():
+		input_vector = mobile_input_vector
 	
 	# Basic movement and jump execution
 	action_manager.execute_action("move", delta)
