@@ -1,28 +1,39 @@
-[gd_scene load_steps=3 format=3 uid="uid://8mroskmf58mm"]
+[gd_scene load_steps=6 format=3 uid="uid://8mroskmf58mm"]
 
 [ext_resource type="Texture2D" uid="uid://bhnlpb0548nyh" path="res://Texture/icon/icon.svg" id="1_350da"]
 [ext_resource type="Script" uid="uid://cdi1gvaud1dyy" path="res://gui/hud.gd" id="1_nejoa"]
+[ext_resource type="Script" uid="uid://6muwf08lv47g" path="res://gui/DragDetector.gd" id="3_nejoa"]
+[ext_resource type="Texture2D" uid="uid://0jmx5wq1lrvy" path="res://Texture/Screenshot 2025-03-12 220256.png" id="5_cfyxq"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hqwf2"]
 
 [node name="HUD" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
 script = ExtResource("1_nejoa")
 
 [node name="MapCamJumpControl" type="Control" parent="."]
 layout_mode = 2
 anchors_preset = 0
-offset_left = 944.0
-offset_top = 413.0
-offset_right = 1077.0
-offset_bottom = 546.0
+offset_left = 1009.0
+offset_top = 509.0
+offset_right = 1145.0
+offset_bottom = 645.0
 
 [node name="MapCamJumpButton" type="Button" parent="MapCamJumpControl"]
 layout_mode = 2
 offset_right = 136.0
 offset_bottom = 136.0
 icon = ExtResource("1_350da")
+
+[node name="DragDetector" type="Control" parent="MapCamJumpControl/MapCamJumpButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_nejoa")
 
 [node name="MenuPanelContainer" type="Control" parent="."]
 layout_mode = 2
@@ -46,3 +57,127 @@ scale = Vector2(0.103528, 0.0995615)
 [node name="ChatButton" type="Button" parent="ChatPanelContainer"]
 layout_mode = 2
 toggle_mode = true
+
+[node name="HudRectControl" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchor_left = 0.211
+anchor_top = 1.0
+anchor_right = 0.829
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -40.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ChatControl" type="Control" parent="HudRectControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ChatRichTextLabel" type="RichTextLabel" parent="HudRectControl/ChatControl"]
+custom_minimum_size = Vector2(500, 150)
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -50.0
+offset_top = -100.0
+offset_right = 50.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Dcm: Chung may bi thanh kinh a
+CCVn: :))))))
+SEllViE: FREE COOKIES AT SELL_VIE.VN. 200 COOKIES PER ACCOUNT
+LolNhatVn: Scam cai cc"
+fit_content = true
+
+[node name="ActionsControl" type="Control" parent="HudRectControl"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -80.0
+offset_top = -40.0
+offset_right = -40.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="HudRectControl/ActionsControl"]
+material = SubResource("ShaderMaterial_hqwf2")
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -40.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="HudControl" type="Control" parent="HudRectControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StatusTextureRect" type="TextureRect" parent="HudRectControl/HudControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -236.0
+offset_top = 86.0
+offset_right = 42.0
+offset_bottom = 432.0
+grow_horizontal = 2
+scale = Vector2(1.77584, 0.0506914)
+texture = ExtResource("5_cfyxq")
+
+[node name="MpTextureRect" type="TextureRect" parent="HudRectControl/HudControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -255.0
+offset_top = 71.0
+offset_right = 23.0
+offset_bottom = 417.0
+grow_horizontal = 2
+scale = Vector2(1.93022, -0.0494613)
+texture = ExtResource("5_cfyxq")
+
+[node name="HpTextureRect" type="TextureRect" parent="HudRectControl/HudControl"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -237.0
+offset_top = 9.0
+offset_right = 41.0
+offset_bottom = 355.0
+grow_horizontal = 2
+scale = Vector2(1.78081, 0.0868901)
+texture = ExtResource("5_cfyxq")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HudRectControl/HudControl"]
+layout_mode = 0
+offset_left = 139.0
+offset_top = 2.0
+offset_right = 179.0
+offset_bottom = 42.0
+scale = Vector2(4.33933, 1)
+text = "DCM c"
+fit_content = true

@@ -24,6 +24,14 @@ var previous_camera_rotation : Vector2      # Store camera rotation separate fro
 var previous_camera_position: Vector3
 @export var jump_requested := false
 
+# Add new signals to receive from HUD
+signal camera_pan_started
+signal camera_pan_stopped
+
+# Add new variables for mobile camera panning
+var mobile_camera_panning := false
+var mobile_pan_speed := 0.009  # Adjust this value to control mobile pan speed
+
 func _ready() -> void:
 	assert(action_manager != null, "ActionManager node not found!")
 	assert(camera_pivot != null, "CameraPivot node not found!")
@@ -37,8 +45,10 @@ func _ready() -> void:
 	menu.settings.connect(_on_settings_new)
 	menu.quit_game.connect(_on_quit_game)
 	hud.toggle_pause.connect(toggle_game_pause)	
-	hud.jump_signal.connect(_mobile_jumping)	
-
+	# Connect new signals from HUD
+	hud.start_camera_pan.connect(_on_mobile_pan_start)
+	hud.stop_camera_pan.connect(_on_mobile_pan_stop)
+	hud.jump_signal.connect(_mobile_jumping)
 	# Always keep mouse visible
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 	print("Player Controller: Initialized")
@@ -86,19 +96,33 @@ func _physics_process(delta: float) -> void:
 
 func _process(delta: float) -> void:
 	# Handle camera panning in _process to get smoother movement
-	if not game_paused and camera_panning:
-		# Get mouse movement
-		var mouse_speed = Input.get_last_mouse_velocity() * delta * SENSITIVITY
-		
-		# Update camera rotation values (stored separately from character rotation)
-		camera_rotation.x -= mouse_speed.y
-		camera_rotation.y -= mouse_speed.x
-		
-		# Clamp vertical rotation
-		camera_rotation.x = clamp(camera_rotation.x, MIN_VERTICAL_ANGLE, MAX_VERTICAL_ANGLE)
-		
-		# Update camera position and orientation
-		update_camera()
+	var map_drag = hud.drag_detector.get_drag_vector() * mobile_pan_speed
+	
+	if(not game_paused):
+		if DisplayServer.is_touchscreen_available() and mobile_camera_panning:
+			print("map dragging detected", map_drag)
+			
+			# Update camera rotation values (stored separately from character rotation)
+			camera_rotation.x -= map_drag.y
+			camera_rotation.y -= map_drag.x
+			
+			# Clamp vertical rotation
+			camera_rotation.x = clamp(camera_rotation.x, MIN_VERTICAL_ANGLE, MAX_VERTICAL_ANGLE)
+			
+		if (camera_panning):
+			# Get mouse movement
+			var mouse_speed = Input.get_last_mouse_velocity() * delta * SENSITIVITY
+			
+			print("pc dragging detected", map_drag)
+			# Update camera rotation values (stored separately from character rotation)
+			camera_rotation.x -= mouse_speed.y
+			camera_rotation.y -= mouse_speed.x
+			
+			# Clamp vertical rotation
+			camera_rotation.x = clamp(camera_rotation.x, MIN_VERTICAL_ANGLE, MAX_VERTICAL_ANGLE)
+			
+			# Update camera position and orientation
+			update_camera()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_cancel"):
@@ -110,6 +134,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	# Handle right mouse button for camera panning
 	if event.is_action_pressed("ui_right_mouse"):
 		camera_panning = true
+		print("dcm")
 	
 	if event.is_action_released("ui_right_mouse"):
 		camera_panning = false
@@ -179,3 +204,15 @@ func _on_quit_game() -> void:
 # mobile exclusive
 func _mobile_jumping() -> void:
 	jump_requested = true
+
+# Add new functions for mobile panning
+func _on_mobile_pan_start() -> void:
+	mobile_camera_panning = true
+	print("started camera panning")
+	# Optionally disable character movement while panning
+	# action_manager.set_movement_enabled(false)
+
+func _on_mobile_pan_stop() -> void:
+	mobile_camera_panning = false
+	# Re-enable character movement if you disabled it
+	# action_manager.set_movement_enabled(true)

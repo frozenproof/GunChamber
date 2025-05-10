@@ -1,0 +1,60 @@
+[gd_scene load_steps=5 format=3 uid="uid://8mroskmf58mm"]
+
+[ext_resource type="Texture2D" uid="uid://bhnlpb0548nyh" path="res://Texture/icon/icon.svg" id="1_350da"]
+[ext_resource type="Script" uid="uid://cdi1gvaud1dyy" path="res://gui/hud.gd" id="1_nejoa"]
+[ext_resource type="Script" uid="uid://cpb2jwp8776vq" path="res://gui/MapCamJumpButton.gd" id="3_hqwf2"]
+[ext_resource type="Script" uid="uid://6muwf08lv47g" path="res://gui/DragDetector.gd" id="3_nejoa"]
+
+[node name="HUD" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_nejoa")
+
+[node name="MapCamJumpControl" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 964.0
+offset_top = 465.0
+offset_right = 1100.0
+offset_bottom = 601.0
+
+[node name="MapCamJumpButton" type="Button" parent="MapCamJumpControl"]
+layout_mode = 2
+offset_right = 136.0
+offset_bottom = 136.0
+icon = ExtResource("1_350da")
+script = ExtResource("3_hqwf2")
+
+[node name="DragDetector" type="Control" parent="MapCamJumpControl/MapCamJumpButton"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("3_nejoa")
+
+[node name="MenuPanelContainer" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_right = 136.0
+offset_bottom = 136.0
+
+[node name="MenuButton" type="Button" parent="MenuPanelContainer"]
+layout_mode = 2
+offset_right = 136.0
+offset_bottom = 136.0
+
+[node name="ChatPanelContainer" type="PanelContainer" parent="."]
+layout_mode = 0
+offset_left = 1070.0
+offset_top = 5.0
+offset_right = 1804.0
+offset_bottom = 753.0
+scale = Vector2(0.103528, 0.0995615)
+
+[node name="ChatButton" type="Button" parent="ChatPanelContainer"]
+layout_mode = 2
+toggle_mode = true
