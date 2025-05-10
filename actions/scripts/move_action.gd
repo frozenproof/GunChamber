@@ -26,6 +26,7 @@ func execute(_p_player: CharacterBody3D, _delta: float) -> void:
 	else:
 		# Use regular input for PC
 		input_dir = Input.get_vector("left", "right", "forward", "backward")
+		#print("print_dir")
 	
 	# Get the camera's rotation
 	var camera_pivot = player.get_node("CameraPivot")

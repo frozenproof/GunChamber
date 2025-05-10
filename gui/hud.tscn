@@ -46,10 +46,3 @@ scale = Vector2(0.103528, 0.0995615)
 [node name="ChatButton" type="Button" parent="ChatPanelContainer"]
 layout_mode = 2
 toggle_mode = true
-
-[node name="JoystickControl" type="Control" parent="."]
-anchors_preset = 0
-offset_left = 13.0
-offset_top = 609.0
-offset_right = 53.0
-offset_bottom = 649.0

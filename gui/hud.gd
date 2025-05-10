@@ -8,6 +8,7 @@ signal jump_signal
 @onready var chatButton = $ChatPanelContainer/ChatButton
 @onready var menuButton = $MenuPanelContainer/MenuButton # Add reference to pause button
 @onready var mapPanJumpButton = $MapCamJumpControl/MapCamJumpButton
+@onready var virtualJoystick = $'Virtual Joystick'
 
 func _ready() -> void:
 	chatButton.pressed.connect(_on_chat_pressed)
