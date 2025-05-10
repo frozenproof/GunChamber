@@ -3,10 +3,7 @@ extends CharacterBody3D
 @onready var action_manager: ActionManager = $ActionManager
 @onready var camera_pivot: Node3D = $CameraPivot
 @onready var menu: Control = $Menu
-@onready var hud: Control = $HUD # Add reference to HUD
-# Add to existing player_controller.gd
-#@onready var mobile_hud: Control = null
-@onready var mobile_hud: Control = $MobileHUD
+@onready var hud: Control = $HUD # Add reference to HUD, used by both mobile and pc
 
 @export var SENSITIVITY := 0.019
 @export var INITIAL_CAMERA_DISTANCE := 3.0
@@ -25,13 +22,13 @@ var camera_distance := INITIAL_CAMERA_DISTANCE
 var camera_rotation := Vector2.ZERO      # Store camera rotation separate from character rotation
 var previous_camera_rotation : Vector2      # Store camera rotation separate from character rotation
 var previous_camera_position: Vector3
+@export var jump_requested := false
 
 func _ready() -> void:
 	assert(action_manager != null, "ActionManager node not found!")
 	assert(camera_pivot != null, "CameraPivot node not found!")
 	assert(menu != null, "Menu not found!")
 	assert(hud != null, "HUD not found!")
-	assert(mobile_hud != null, "Mobile HUD not found!")
 
 	# get my data dir
 	print(OS.get_data_dir())
@@ -40,6 +37,7 @@ func _ready() -> void:
 	menu.settings.connect(_on_settings_new)
 	menu.quit_game.connect(_on_quit_game)
 	hud.toggle_pause.connect(toggle_game_pause)	
+	hud.jump_signal.connect(_mobile_jumping)	
 
 	# Always keep mouse visible
 	Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
@@ -49,24 +47,8 @@ func _ready() -> void:
 	camera_distance = INITIAL_CAMERA_DISTANCE
 	update_camera()
 
-	# Connect mobile control signals if available
-	if mobile_hud:
-		mobile_hud.move_input.connect(_on_mobile_move_input)
-		mobile_hud.jump_pressed.connect(_on_mobile_jump)
-	else:
-		print("fucking bitch")
-		#get_tree().quit()
 
 
-
-func _on_mobile_move_input(value: Vector2) -> void:
-	mobile_input_vector = value
-
-func _on_mobile_jump() -> void:
-	if not game_paused:
-		action_manager.execute_action("jump", get_physics_process_delta_time())
-
-	
 func _physics_process(delta: float) -> void:
 	if game_paused:
 		return
@@ -83,7 +65,8 @@ func _physics_process(delta: float) -> void:
 	# Basic movement and jump execution
 	action_manager.execute_action("move", delta)
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") or jump_requested:
+		jump_requested = false
 		action_manager.execute_action("jump", delta)
 	
 	# Apply gravity and move
@@ -192,3 +175,7 @@ func _on_settings_new() -> void:
 
 func _on_quit_game() -> void:
 	get_tree().quit()
+
+# mobile exclusive
+func _mobile_jumping() -> void:
+	jump_requested = true

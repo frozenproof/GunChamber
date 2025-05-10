@@ -16,6 +16,14 @@ albedo_texture = ExtResource("2_shwon")
 
 [node name="CharacterBody3D" type="CharacterBody3D"]
 script = ExtResource("1_fb3t6")
+SENSITIVITY = null
+INITIAL_CAMERA_DISTANCE = null
+MIN_CAMERA_DISTANCE = null
+MAX_CAMERA_DISTANCE = null
+ZOOM_SPEED = null
+MIN_VERTICAL_ANGLE = null
+MAX_VERTICAL_ANGLE = null
+MODEL_ROTATION_SPEED = null
 
 [node name="VFXMeshInstance3D" type="MeshInstance3D" parent="."]
 visible = false
